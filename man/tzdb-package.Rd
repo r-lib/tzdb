@@ -14,8 +14,8 @@ Provides an up-to-date copy of the Internet
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/DavisVaughan/tzdb}
-  \item Report bugs at \url{https://github.com/DavisVaughan/tzdb/issues}
+  \item \url{https://github.com/r-lib/tzdb}
+  \item Report bugs at \url{https://github.com/r-lib/tzdb/issues}
 }
 
 }

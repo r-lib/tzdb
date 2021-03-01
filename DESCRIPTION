@@ -13,8 +13,8 @@ Description: Provides an up-to-date copy of the Internet
     periodically to reflect changes made by political bodies to time zone
     boundaries, UTC offsets, and daylight saving time rules.
 License: MIT + file LICENSE
-URL: https://github.com/DavisVaughan/tzdb
-BugReports: https://github.com/DavisVaughan/tzdb/issues
+URL: https://github.com/r-lib/tzdb
+BugReports: https://github.com/r-lib/tzdb/issues
 Suggests: 
     covr,
     testthat (>= 3.0.0)

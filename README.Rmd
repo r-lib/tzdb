@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 # tzdb
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/DavisVaughan/tzdb/workflows/R-CMD-check/badge.svg)](https://github.com/DavisVaughan/tzdb/actions)
+[![R-CMD-check](https://github.com/r-lib/tzdb/workflows/R-CMD-check/badge.svg)](https://github.com/r-lib/tzdb/actions)
 <!-- badges: end -->
 
 tzdb ships an up-to-date copy of the IANA time zone database files. This package does very little. It is meant to serve as the source of time zone database information for other time-based packages.
@@ -33,5 +33,5 @@ And the development version from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("remotes")
-remotes::install_github("DavisVaughan/tzdb")
+remotes::install_github("r-lib/tzdb")
 ```
