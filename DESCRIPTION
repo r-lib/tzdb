@@ -1,18 +1,21 @@
 Package: tzdb
-Title: What the Package Does (One Line, Title Case)
+Title: Time Zone Database Information
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
-           role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to
-    pick a license
+    c(person(given = "Davis",
+             family = "Vaughan",
+             role = c("aut", "cre"),
+             email = "davis@rstudio.com"),
+      person(given = "RStudio",
+             role = c("cph", "fnd")))
+Description: Provides an up-to-date copy of the Internet
+    Assigned Numbers Authority (IANA) Time Zone Database. It is updated
+    periodically to reflect changes made by political bodies to time zone
+    boundaries, UTC offsets, and daylight saving time rules.
+License: MIT + file LICENSE
+URL: https://github.com/DavisVaughan/tzdb
+BugReports: https://github.com/DavisVaughan/tzdb/issues
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
-URL: https://github.com/DavisVaughan/tzdb
-BugReports: https://github.com/DavisVaughan/tzdb/issues
