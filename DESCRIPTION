@@ -12,10 +12,10 @@ Authors@R:
              comment = "Author of the included date library"),
       person(given = "RStudio",
              role = c("cph", "fnd")))
-Description: Provides an up-to-date copy of the Internet
-    Assigned Numbers Authority (IANA) Time Zone Database. It is updated
-    periodically to reflect changes made by political bodies to time zone
-    boundaries, UTC offsets, and daylight saving time rules.
+Description: Provides an up-to-date copy of the Internet Assigned Numbers
+    Authority (IANA) Time Zone Database. It is updated periodically to
+    reflect changes made by political bodies to time zone boundaries, UTC
+    offsets, and daylight saving time rules.
 License: MIT + file LICENSE
 URL: https://github.com/r-lib/tzdb
 BugReports: https://github.com/r-lib/tzdb/issues

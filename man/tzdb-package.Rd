@@ -6,10 +6,10 @@
 \alias{tzdb-package}
 \title{tzdb: Time Zone Database Information}
 \description{
-Provides an up-to-date copy of the Internet
-    Assigned Numbers Authority (IANA) Time Zone Database. It is updated
-    periodically to reflect changes made by political bodies to time zone
-    boundaries, UTC offsets, and daylight saving time rules.
+Provides an up-to-date copy of the Internet Assigned Numbers
+    Authority (IANA) Time Zone Database. It is updated periodically to
+    reflect changes made by political bodies to time zone boundaries, UTC
+    offsets, and daylight saving time rules.
 }
 \seealso{
 Useful links:
