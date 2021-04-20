@@ -1,6 +1,11 @@
-#' Retrieve the time zone database version
+#' Time zone database version
 #'
-#' @return A single string containing the version number.
+#' @description
+#' `tzdb_version()` returns the version of the time zone database currently in
+#' use.
+#'
+#' @return
+#' A single string of the database version.
 #'
 #' @export
 #' @examples
