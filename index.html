@@ -12,10 +12,16 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Time Zone Database Information">
-<meta property="og:description" content="Provides an up-to-date copy of the Internet
-    Assigned Numbers Authority (IANA) Time Zone Database. It is updated
-    periodically to reflect changes made by political bodies to time zone
-    boundaries, UTC offsets, and daylight saving time rules.">
+<meta property="og:description" content="Provides an up-to-date copy of the Internet Assigned Numbers
+    Authority (IANA) Time Zone Database. It is updated periodically to
+    reflect changes made by political bodies to time zone boundaries, UTC
+    offsets, and daylight saving time rules. Additionally, this package
+    provides C++ headers and callables for working with the date
+    library. date provides comprehensive support for working with dates
+    and date-times, which this package exposes to make it easier for other
+    R packages to utilize. Headers are provided for calendar specific
+    calculations, along with a limited callable interface for time zone
+    manipulations.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -34,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">tzdb</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9001</span>
       </span>
     </div>
 
@@ -77,7 +83,18 @@
 <a href="#tzdb" class="anchor"></a>tzdb</h1></div>
 <!-- badges: start -->
 
-<p>tzdb ships an up-to-date copy of the IANA time zone database files. This package does very little. It is meant to serve as the source of time zone database information for other time-based packages.</p>
+<p>tzdb is a developer focused R package with two purposes:</p>
+<ul>
+<li><p>It ships an up-to-date copy of the IANA time zone database files.</p></li>
+<li><p>It provides low-level access to the C++ library, <a href="https://github.com/HowardHinnant/date">date</a>.</p></li>
+</ul>
+<p>To use the C++ API supplied by tzdb:</p>
+<ul>
+<li><p>Add tzdb to both Imports and LinkingTo.</p></li>
+<li><p>Call <code><a href="reference/tzdb_initialize.html">tzdb::tzdb_initialize()</a></code> from your <code><a href="https://rdrr.io/r/base/ns-hooks.html">.onLoad()</a></code>.</p></li>
+<li><p>Access the date API through <code>#include &lt;tzdb/*.h&gt;</code> where <code><a href="https://rdrr.io/r/base/Arithmetic.html">*</a></code> is replaced with the date header you want to use.</p></li>
+</ul>
+<p>Note that while <code>tzdb/tz.h</code> declares many functions and types, most of their implementations are not present in the header file. This means that the functions in <code>tzdb/tz.h</code> are <em>not</em> safe to call from your R package. Instead, the most critical helpers have been exposed in a safe way in <code>tzdb/tzdb.h</code>. Use these instead.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
@@ -117,6 +134,7 @@
 <li>Davis Vaughan <br><small class="roles"> Author, maintainer </small>  </li>
 <li>
 <a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a> <br><small class="roles"> Copyright holder, funder </small>  </li>
+<li><a href="authors.html">All authors...</a></li>
 </ul>
 </div>
 
