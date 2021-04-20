@@ -24,6 +24,7 @@ Useful links:
 
 Other contributors:
 \itemize{
+  \item Howard Hinnant (Author of the included date library) [copyright holder]
   \item RStudio [copyright holder, funder]
 }
 
