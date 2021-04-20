@@ -2,15 +2,16 @@
 % Please edit documentation in R/version.R
 \name{tzdb_version}
 \alias{tzdb_version}
-\title{Retrieve the time zone database version}
+\title{Time zone database version}
 \usage{
 tzdb_version()
 }
 \value{
-A single string containing the version number.
+A single string of the database version.
 }
 \description{
-Retrieve the time zone database version
+\code{tzdb_version()} returns the version of the time zone database currently in
+use.
 }
 \examples{
 tzdb_version()
