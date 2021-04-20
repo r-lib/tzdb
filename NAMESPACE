@@ -2,3 +2,4 @@
 
 export(tzdb_path)
 export(tzdb_version)
+useDynLib(tzdb, .registration = TRUE)
