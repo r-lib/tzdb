@@ -6,5 +6,5 @@
 #' @examples
 #' tzdb_version()
 tzdb_version <- function() {
-  "2021a"
+  tzdb_version_cpp()
 }
