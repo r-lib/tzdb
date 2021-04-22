@@ -14,7 +14,7 @@ Provides an up-to-date copy of the Internet Assigned Numbers
     library. 'date' provides comprehensive support for working with dates
     and date-times, which this package exposes to make it easier for other
     R packages to utilize. Headers are provided for calendar specific
-    calculations, along with a limited callable interface for time zone
+    calculations, along with a limited interface for time zone
     manipulations.
 }
 \seealso{
