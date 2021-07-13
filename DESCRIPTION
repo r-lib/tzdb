@@ -1,6 +1,6 @@
 Package: tzdb
 Title: Time Zone Database Information
-Version: 0.1.1.9000
+Version: 0.1.1.9001
 Authors@R: 
     c(person(given = "Davis",
              family = "Vaughan",
