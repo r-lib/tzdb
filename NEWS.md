@@ -1,5 +1,7 @@
 # tzdb (development version)
 
+* Updated the embedded date library.
+
 # tzdb 0.1.1
 
 * tzdb now provides C++ headers and callables for working with the 'date'
