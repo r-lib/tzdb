@@ -12,9 +12,17 @@
 #' @examples
 #' tzdb_path("text")
 tzdb_path <- function(type) {
-  if (identical(type, "text")) {
-    system.file("tzdata", package = "tzdb", mustWork = TRUE)
-  } else {
+  if (!identical(type, "text")) {
     stop("`type` must be 'text'.", call. = FALSE)
   }
+
+  path <- system.file("tzdata", package = "tzdb", mustWork = TRUE)
+  path <- enc2utf8(path)
+
+  path
+}
+
+tzdb_set_install <- function(path) {
+  path <- enc2utf8(path)
+  tzdb_set_install_cpp(path)
 }

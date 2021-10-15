@@ -198,6 +198,33 @@ namespace
     using co_task_mem_ptr = std::unique_ptr<wchar_t[], task_mem_deleter>;
 }
 
+static
+std::wstring
+to_utf16(const std::string& s)
+{
+    std::wstring out;
+    const int size = MultiByteToWideChar(CP_UTF8, 0, s.c_str(), -1, NULL, 0);
+
+    if (size == 0) {
+        std::string msg = "Failed to determine required size when converting \"";
+        msg += s;
+        msg += "\" to UTF-16.";
+        throw std::runtime_error(msg);
+    }
+
+    out.resize(size);
+    const int check = MultiByteToWideChar(CP_UTF8, 0, s.c_str(), -1, out.data(), size);
+
+    if (size != check) {
+        std::string msg = "Failed to convert \"";
+        msg += s;
+        msg += "\" to UTF-16.";
+        throw std::runtime_error(msg);
+    }
+
+    return out;
+}
+
 // We might need to know certain locations even if not using the remote API,
 // so keep these routines out of that block for now.
 static
@@ -266,6 +293,60 @@ get_download_folder()
 #    endif // !defined(INSTALL)
 
 #  endif  // !_WIN32
+
+
+class fstreambuf
+  : public std::streambuf
+{
+private:
+    FILE* file_;
+    static const int buffer_size_ = 1024;
+    char buffer_[buffer_size_];
+
+public:
+    fstreambuf(const std::string& filename)
+        : file_(file_open(filename))
+    {
+    }
+
+    ~fstreambuf()
+    {
+        if (file_) {
+            ::fclose(file_);
+        }
+    }
+
+protected:
+    virtual int_type underflow() {
+        if (gptr() == egptr() && file_) {
+            const size_t size = ::fread(buffer_, 1, buffer_size_, file_);
+            setg(buffer_, buffer_, buffer_ + size);
+        }
+        return (gptr() == egptr())
+            ? traits_type::eof()
+                : traits_type::to_int_type(*gptr());
+    }
+
+private:
+    static
+    FILE*
+    file_open(const std::string& filename)
+    {
+#  ifdef _WIN32
+        std::wstring wfilename = to_utf16(filename);
+        FILE* file = ::_wfopen(wfilename.c_str(), L"r");
+#  else // !_WIN32
+        FILE* file = ::fopen(filename.c_str(), "r");
+#  endif // _WIN32
+        if (file == NULL) {
+            std::string msg = "Error opening file \"";
+            msg += filename;
+            msg += "\".";
+            throw std::runtime_error(msg);
+        }
+        return file;
+    }
+};
 
 #endif  // !USE_OS_TZDB
 
@@ -559,15 +640,8 @@ load_timezone_mappings_from_xml_file(const std::string& input_path)
     std::vector<detail::timezone_mapping> mappings;
     std::string line;
 
-    std::ifstream is(input_path);
-    if (!is.is_open())
-    {
-        // We don't emit file exceptions because that's an implementation detail.
-        std::string msg = "Error opening time zone mapping file \"";
-        msg += input_path;
-        msg += "\".";
-        throw std::runtime_error(msg);
-    }
+    fstreambuf ibuf(input_path);
+    std::istream is(&ibuf);
 
     auto error = [&input_path, &line_num](const char* info)
     {
@@ -697,7 +771,6 @@ load_timezone_mappings_from_xml_file(const std::string& input_path)
         }
     }
 
-    is.close();
     return mappings;
 }
 
@@ -2848,7 +2921,8 @@ bool
 file_exists(const std::string& filename)
 {
 #ifdef _WIN32
-    return ::_access(filename.c_str(), 0) == 0;
+    std::wstring wfilename = to_utf16(filename);
+    return ::_waccess(wfilename.c_str(), 0) == 0;
 #else
     return ::access(filename.c_str(), F_OK) == 0;
 #endif
@@ -3516,7 +3590,12 @@ init_tzdb()
 
     for (const auto& filename : files)
     {
-        std::ifstream infile(path + filename);
+        std::string file_path = path + filename;
+        if (!file_exists(file_path)) {
+          continue;
+        }
+        fstreambuf inbuf(file_path);
+        std::istream infile(&inbuf);
         while (infile)
         {
             std::getline(infile, line);
