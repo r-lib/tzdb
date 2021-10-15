@@ -3499,16 +3499,27 @@ std::string
 get_version(const std::string& path)
 {
     std::string version;
-    std::ifstream infile(path + "version");
-    if (infile.is_open())
+
+    std::string path_version = path + "version";
+
+    if (file_exists(path_version))
     {
+        fstreambuf inbuf(path_version);
+        std::istream infile(&inbuf);
+
         infile >> version;
+
         if (!infile.fail())
-            return version;
+          return version;
     }
-    else
+
+    std::string path_news = path + "NEWS";
+
+    if (file_exists(path_news))
     {
-        infile.open(path + "NEWS");
+        fstreambuf inbuf(path_news);
+        std::istream infile(&inbuf);
+
         while (infile)
         {
             infile >> version;
@@ -3519,6 +3530,7 @@ get_version(const std::string& path)
             }
         }
     }
+
     throw std::runtime_error("Unable to get Timezone database version from " + path);
 }
 
