@@ -213,7 +213,7 @@ to_utf16(const std::string& s)
     }
 
     out.resize(size);
-    const int check = MultiByteToWideChar(CP_UTF8, 0, s.c_str(), -1, out.data(), size);
+    const int check = MultiByteToWideChar(CP_UTF8, 0, s.c_str(), -1, &out[0], size);
 
     if (size != check) {
         std::string msg = "Failed to convert \"";
