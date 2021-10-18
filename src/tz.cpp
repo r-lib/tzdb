@@ -357,9 +357,9 @@ private:
     {
 #  ifdef _WIN32
         std::wstring wfilename = to_utf16(filename);
-        FILE* file = ::_wfopen(wfilename.c_str(), L"r");
+        FILE* file = ::_wfopen(wfilename.c_str(), L"rb");
 #  else // !_WIN32
-        FILE* file = ::fopen(filename.c_str(), "r");
+        FILE* file = ::fopen(filename.c_str(), "rb");
 #  endif // _WIN32
         if (file == NULL) {
             std::string msg = "Error opening file \"";
