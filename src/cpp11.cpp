@@ -3,6 +3,7 @@
 
 
 #include "cpp11/declarations.hpp"
+#include <R_ext/Visibility.h>
 
 // names.cpp
 cpp11::writable::strings tzdb_names_cpp();
@@ -28,11 +29,6 @@ extern "C" SEXP _tzdb_tzdb_version_cpp() {
 }
 
 extern "C" {
-/* .Call calls */
-extern SEXP _tzdb_tzdb_names_cpp();
-extern SEXP _tzdb_tzdb_set_install_cpp(SEXP);
-extern SEXP _tzdb_tzdb_version_cpp();
-
 static const R_CallMethodDef CallEntries[] = {
     {"_tzdb_tzdb_names_cpp",       (DL_FUNC) &_tzdb_tzdb_names_cpp,       0},
     {"_tzdb_tzdb_set_install_cpp", (DL_FUNC) &_tzdb_tzdb_set_install_cpp, 1},
@@ -43,7 +39,7 @@ static const R_CallMethodDef CallEntries[] = {
 
 void api_init(DllInfo* dll);
 
-extern "C" void R_init_tzdb(DllInfo* dll){
+extern "C" attribute_visible void R_init_tzdb(DllInfo* dll){
   R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
   R_useDynamicSymbols(dll, FALSE);
   api_init(dll);
