@@ -328,7 +328,6 @@ protected:
     }
 
 private:
-    static
     FILE*
     file_open(const std::string& filename)
     {
