@@ -20,6 +20,21 @@ extern "C" SEXP _tzdb_tzdb_set_install_cpp(SEXP path) {
     return R_NilValue;
   END_CPP11
 }
+// path.cpp
+void tzdb_reload_cpp();
+extern "C" SEXP _tzdb_tzdb_reload_cpp() {
+  BEGIN_CPP11
+    tzdb_reload_cpp();
+    return R_NilValue;
+  END_CPP11
+}
+// path.cpp
+bool tzdb_use_os_tzdb_cpp();
+extern "C" SEXP _tzdb_tzdb_use_os_tzdb_cpp() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(tzdb_use_os_tzdb_cpp());
+  END_CPP11
+}
 // version.cpp
 cpp11::writable::strings tzdb_version_cpp();
 extern "C" SEXP _tzdb_tzdb_version_cpp() {
@@ -31,7 +46,9 @@ extern "C" SEXP _tzdb_tzdb_version_cpp() {
 extern "C" {
 static const R_CallMethodDef CallEntries[] = {
     {"_tzdb_tzdb_names_cpp",       (DL_FUNC) &_tzdb_tzdb_names_cpp,       0},
+    {"_tzdb_tzdb_reload_cpp",      (DL_FUNC) &_tzdb_tzdb_reload_cpp,      0},
     {"_tzdb_tzdb_set_install_cpp", (DL_FUNC) &_tzdb_tzdb_set_install_cpp, 1},
+    {"_tzdb_tzdb_use_os_tzdb_cpp", (DL_FUNC) &_tzdb_tzdb_use_os_tzdb_cpp, 0},
     {"_tzdb_tzdb_version_cpp",     (DL_FUNC) &_tzdb_tzdb_version_cpp,     0},
     {NULL, NULL, 0}
 };

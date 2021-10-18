@@ -8,6 +8,14 @@ tzdb_set_install_cpp <- function(path) {
   invisible(.Call(`_tzdb_tzdb_set_install_cpp`, path))
 }
 
+tzdb_reload_cpp <- function() {
+  invisible(.Call(`_tzdb_tzdb_reload_cpp`))
+}
+
+tzdb_use_os_tzdb_cpp <- function() {
+  .Call(`_tzdb_tzdb_use_os_tzdb_cpp`)
+}
+
 tzdb_version_cpp <- function() {
   .Call(`_tzdb_tzdb_version_cpp`)
 }
