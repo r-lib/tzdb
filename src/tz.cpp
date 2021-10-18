@@ -295,6 +295,30 @@ get_download_folder()
 #  endif  // !_WIN32
 
 
+/*
+ * This class is provided to mimic the following usage of `ifstream`:
+ *
+ * std::ifstream is(filename);
+ *
+ * file_streambuf ibuf(filename);
+ * std::istream is(&ibuf);
+ *
+ * This is required because `ifstream` does not support opening files
+ * containing wide characters on Windows. On Windows, `file_streambuf` uses
+ * `file_open()` to convert the file name to UTF-16 before opening it with
+ * `_wfopen()`.
+ *
+ * Note that this is not an exact re-implementation of `ifstream`,
+ * but is enough for our usage.
+ *
+ * It is partially based on these two implementations:
+ * - fdinbuf from http://www.josuttis.com/cppcode/fdstream.html
+ * - stdiobuf https://stackoverflow.com/questions/12342542/convert-file-to-ifstream-c-android-ndk
+ *
+ * Apparently MSVC provides non-standard overloads of `ifstream` that support
+ * a `const wchar_t*` file name, but MinGW does not.
+ * https://stackoverflow.com/a/822032
+ */
 class file_streambuf
   : public std::streambuf
 {
