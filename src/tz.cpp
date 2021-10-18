@@ -295,7 +295,7 @@ get_download_folder()
 #  endif  // !_WIN32
 
 
-class fstreambuf
+class file_streambuf
   : public std::streambuf
 {
 private:
@@ -304,12 +304,12 @@ private:
     char buffer_[buffer_size_];
 
 public:
-    fstreambuf(const std::string& filename)
+    file_streambuf(const std::string& filename)
         : file_(file_open(filename))
     {
     }
 
-    ~fstreambuf()
+    ~file_streambuf()
     {
         if (file_) {
             ::fclose(file_);
@@ -639,7 +639,7 @@ load_timezone_mappings_from_xml_file(const std::string& input_path)
     std::vector<detail::timezone_mapping> mappings;
     std::string line;
 
-    fstreambuf ibuf(input_path);
+    file_streambuf ibuf(input_path);
     std::istream is(&ibuf);
 
     auto error = [&input_path, &line_num](const char* info)
@@ -3503,7 +3503,7 @@ get_version(const std::string& path)
 
     if (file_exists(path_version))
     {
-        fstreambuf inbuf(path_version);
+        file_streambuf inbuf(path_version);
         std::istream infile(&inbuf);
 
         infile >> version;
@@ -3516,7 +3516,7 @@ get_version(const std::string& path)
 
     if (file_exists(path_news))
     {
-        fstreambuf inbuf(path_news);
+        file_streambuf inbuf(path_news);
         std::istream infile(&inbuf);
 
         while (infile)
@@ -3605,7 +3605,7 @@ init_tzdb()
         if (!file_exists(file_path)) {
           continue;
         }
-        fstreambuf inbuf(file_path);
+        file_streambuf inbuf(file_path);
         std::istream infile(&inbuf);
         while (infile)
         {
