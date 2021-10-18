@@ -17,12 +17,26 @@ tzdb_path <- function(type) {
   }
 
   path <- system.file("tzdata", package = "tzdb", mustWork = TRUE)
-  path <- enc2utf8(path)
+  path <- chr_reencode(path)
 
   path
 }
 
 tzdb_set_install <- function(path) {
-  path <- enc2utf8(path)
+  path <- chr_reencode(path)
   tzdb_set_install_cpp(path)
+}
+
+chr_reencode <- function(x) {
+  if (on_windows()) {
+    enc2utf8(x)
+  } else {
+    enc2native(x)
+  }
+}
+on_windows <- function() {
+  identical("windows", os_name())
+}
+os_name <- function() {
+  tolower(Sys.info()[["sysname"]])
 }
