@@ -3510,7 +3510,7 @@ get_version(const std::string& path)
         infile >> version;
 
         if (!infile.fail())
-          return version;
+            return version;
     }
 
     std::string path_news = path + "NEWS";
