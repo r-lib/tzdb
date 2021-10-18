@@ -14,10 +14,10 @@ test_that("path to the text `tzdata` can contain Unicode (#10)", {
 
   # Get existing install location and all files to copy
   dir_old <- tzdb_path(type = "text")
-  on.exit(add = TRUE, {
+  on.exit({
     tzdb_set_install(dir_old)
     tzdb_reload_cpp()
-  })
+  }, add = TRUE)
 
   files_old <- dir(dir_old, full.names = TRUE)
   base_names <- basename(files_old)
