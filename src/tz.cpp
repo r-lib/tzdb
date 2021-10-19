@@ -200,12 +200,13 @@ namespace
 
 static
 std::wstring
-to_utf16(const std::string& s)
+convert_utf8_to_utf16(const std::string& s)
 {
     std::wstring out;
     const int size = MultiByteToWideChar(CP_UTF8, 0, s.c_str(), -1, NULL, 0);
 
-    if (size == 0) {
+    if (size == 0)
+    {
         std::string msg = "Failed to determine required size when converting \"";
         msg += s;
         msg += "\" to UTF-16.";
@@ -215,7 +216,8 @@ to_utf16(const std::string& s)
     out.resize(size);
     const int check = MultiByteToWideChar(CP_UTF8, 0, s.c_str(), -1, &out[0], size);
 
-    if (size != check) {
+    if (size != check)
+    {
         std::string msg = "Failed to convert \"";
         msg += s;
         msg += "\" to UTF-16.";
@@ -309,15 +311,14 @@ get_download_folder()
  * `_wfopen()`.
  *
  * Note that this is not an exact re-implementation of `ifstream`,
- * but is enough for our usage.
+ * but is enough for usage here.
  *
  * It is partially based on these two implementations:
  * - fdinbuf from http://www.josuttis.com/cppcode/fdstream.html
  * - stdiobuf https://stackoverflow.com/questions/12342542/convert-file-to-ifstream-c-android-ndk
  *
  * Apparently MSVC provides non-standard overloads of `ifstream` that support
- * a `const wchar_t*` file name, but MinGW does not.
- * https://stackoverflow.com/a/822032
+ * a `const wchar_t*` file name, but MinGW does not https://stackoverflow.com/a/822032
  */
 class file_streambuf
   : public std::streambuf
@@ -335,14 +336,19 @@ public:
 
     ~file_streambuf()
     {
-        if (file_) {
+        if (file_)
+        {
             ::fclose(file_);
         }
     }
 
 protected:
-    virtual int_type underflow() {
-        if (gptr() == egptr() && file_) {
+    virtual
+    int_type
+    underflow()
+    {
+        if (gptr() == egptr() && file_)
+        {
             const size_t size = ::fread(buffer_, 1, buffer_size_, file_);
             setg(buffer_, buffer_, buffer_ + size);
         }
@@ -356,12 +362,13 @@ private:
     file_open(const std::string& filename)
     {
 #  ifdef _WIN32
-        std::wstring wfilename = to_utf16(filename);
+        std::wstring wfilename = convert_utf8_to_utf16(filename);
         FILE* file = ::_wfopen(wfilename.c_str(), L"rb");
 #  else // !_WIN32
         FILE* file = ::fopen(filename.c_str(), "rb");
 #  endif // _WIN32
-        if (file == NULL) {
+        if (file == NULL)
+        {
             std::string msg = "Error opening file \"";
             msg += filename;
             msg += "\".";
@@ -2944,7 +2951,7 @@ bool
 file_exists(const std::string& filename)
 {
 #ifdef _WIN32
-    std::wstring wfilename = to_utf16(filename);
+    std::wstring wfilename = convert_utf8_to_utf16(filename);
     return ::_waccess(wfilename.c_str(), 0) == 0;
 #else
     return ::access(filename.c_str(), F_OK) == 0;
@@ -3626,7 +3633,8 @@ init_tzdb()
     for (const auto& filename : files)
     {
         std::string file_path = path + filename;
-        if (!file_exists(file_path)) {
+        if (!file_exists(file_path))
+        {
           continue;
         }
         file_streambuf inbuf(file_path);
