@@ -2800,16 +2800,16 @@ find_read_and_leap_seconds()
             std::getline(in, line);
             if (!line.empty() && line[0] != '#')
             {
-                std::istringstream in(line);
-                in.exceptions(std::ios::failbit | std::ios::badbit);
+                std::istringstream iss(line);
+                iss.exceptions(std::ios::failbit | std::ios::badbit);
                 std::string word;
-                in >> word;
+                iss >> word;
                 if (word == "Leap")
                 {
                     int y, m, d;
-                    in >> y;
-                    m = static_cast<int>(parse_month(in));
-                    in >> d;
+                    iss >> y;
+                    m = static_cast<int>(parse_month(iss));
+                    iss >> d;
                     leap_seconds.push_back(leap_second(sys_days{year{y}/m/d} + days{1},
                                                                  detail::undocumented{}));
                 }
@@ -2836,11 +2836,11 @@ find_read_and_leap_seconds()
             std::getline(in, line);
             if (!line.empty() && line[0] != '#')
             {
-                std::istringstream in(line);
-                in.exceptions(std::ios::failbit | std::ios::badbit);
+                std::istringstream iss(line);
+                iss.exceptions(std::ios::failbit | std::ios::badbit);
                 using seconds = std::chrono::seconds;
                 seconds::rep s;
-                in >> s;
+                iss >> s;
                 if (s == 2272060800)
                     continue;
                 leap_seconds.push_back(leap_second(sys_seconds{seconds{s}} - offset,
@@ -4108,7 +4108,7 @@ tzdb::current_zone() const
             auto p = result.find("ZONE=\"");
             if (p != std::string::npos)
             {
-                result.erase(p, p+6);
+                result.erase(0, p+6);
                 result.erase(result.rfind('"'));
                 return locate_zone(result);
             }
