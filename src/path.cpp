@@ -21,3 +21,29 @@ tzdb_set_install_cpp(const cpp11::strings& path) {
   date::set_install(string_path);
 #endif
 }
+
+/*
+ * Force a reload of the internal tzdb structure.
+ * This allows you to update the database if your installation path has been
+ * changed.
+ */
+[[cpp11::register]]
+void
+tzdb_reload_cpp() {
+#if !USE_OS_TZDB
+  date::reload_tzdb();
+#endif
+}
+
+/*
+ * Determine at the R level if we are using the OS tzdb or not
+ */
+[[cpp11::register]]
+bool
+tzdb_use_os_tzdb_cpp() {
+#if USE_OS_TZDB
+  return true;
+#else
+  return false;
+#endif
+}
