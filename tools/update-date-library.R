@@ -9,6 +9,7 @@ library(glue)
 #
 # 1) Usage of `std::cerr()`, which is not allowed by CRAN
 # 2) Additions of undocumented accessors required by clock
+# 3) Additions of `tz.cpp` changes related to Unicode on Windows (#13)
 #
 # The `tz.cpp` file will be downloaded into `src/`.
 # The header files will be downloaded into `inst/include/date/`.
