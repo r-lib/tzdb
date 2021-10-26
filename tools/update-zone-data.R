@@ -19,6 +19,8 @@ library(fs)
 # It can be found here if you need to download it manually:
 # https://raw.githubusercontent.com/unicode-org/cldr/master/common/supplemental/windowsZones.xml.
 # Download this file and place it in `inst/tzdata` as `windowsZones.xml`.
+# This file is only updated by CLDR ~2 times a year, so it won't always match
+# the `version`, but that is typically fine.
 
 # Update the version!
 version <- "2021a"
