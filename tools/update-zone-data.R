@@ -17,13 +17,13 @@ library(fs)
 #
 # On Windows, we also need a `windowsZone.xml` mapping file.
 # It can be found here if you need to download it manually:
-# https://raw.githubusercontent.com/unicode-org/cldr/master/common/supplemental/windowsZones.xml.
+# https://raw.githubusercontent.com/unicode-org/cldr/main/common/supplemental/windowsZones.xml.
 # Download this file and place it in `inst/tzdata` as `windowsZones.xml`.
 # This file is only updated by CLDR ~2 times a year, so it won't always match
 # the `version`, but that is typically fine.
 
 # Update the version!
-version <- "2021a"
+version <- "2021e"
 
 # ------------------------------------------------------------------------------
 # Download the time zone database
@@ -46,7 +46,7 @@ unlink(dir_temp, recursive = TRUE, force = TRUE)
 # ------------------------------------------------------------------------------
 # Download the Windows mapping file
 
-windows_mapping_url <- "https://raw.githubusercontent.com/unicode-org/cldr/master/common/supplemental/windowsZones.xml"
+windows_mapping_url <- "https://raw.githubusercontent.com/unicode-org/cldr/main/common/supplemental/windowsZones.xml"
 path_dest_windows_mapping <- here("inst/tzdata/windowsZones.xml")
 
 download.file(windows_mapping_url, path_dest_windows_mapping)
