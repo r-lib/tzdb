@@ -65,8 +65,7 @@ tzdb_names_impl() {
   cpp11::unwind_protect([&] {
     for (R_xlen_t i = 0; i < n_zones; ++i) {
       const std::string& name = zones[i];
-      SEXP elt = Rf_mkCharLenCE(name.c_str(), name.size(), CE_UTF8);
-      SET_STRING_ELT(out, i, elt);
+      SET_STRING_ELT(out, i, Rf_mkCharLenCE(name.c_str(), name.size(), CE_UTF8));
     }
   });
 
