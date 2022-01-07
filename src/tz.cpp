@@ -418,9 +418,9 @@ access_install()
 }
 
 void
-set_install(const std::string& s)
+set_install(const std::string& install)
 {
-    access_install() = s;
+    access_install() = install;
 }
 
 static
@@ -2635,12 +2635,12 @@ format_abbrev(std::string format, const std::string& variable, std::chrono::seco
 }
 
 sys_info
-time_zone::get_info_impl(sys_seconds tp, int tz_int) const
+time_zone::get_info_impl(sys_seconds tp, int timezone) const
 {
     using namespace std::chrono;
     using namespace date;
-    tz timezone = static_cast<tz>(tz_int);
-    assert(timezone != tz::standard);
+    tz timezone_tz = static_cast<tz>(timezone);
+    assert(timezone_tz != tz::standard);
     auto y = year_month_day(floor<days>(tp)).year();
     if (y < min_year || y > max_year)
         throw std::runtime_error("The year " + std::to_string(static_cast<int>(y)) +
@@ -2652,9 +2652,9 @@ time_zone::get_info_impl(sys_seconds tp, int tz_int) const
                        const_cast<time_zone*>(this)->adjust_infos(get_tzdb().rules);
                    });
     auto i = std::upper_bound(zonelets_.begin(), zonelets_.end(), tp,
-        [timezone](sys_seconds t, const zonelet& zl)
+        [timezone_tz](sys_seconds t, const zonelet& zl)
         {
-            return timezone == tz::utc ? t < zl.until_utc_ :
+            return timezone_tz == tz::utc ? t < zl.until_utc_ :
                                          t < sys_seconds{zl.until_loc_.time_since_epoch()};
         });
 
@@ -2683,7 +2683,7 @@ time_zone::get_info_impl(sys_seconds tp, int tz_int) const
         else
         {
             r = find_rule(i->first_rule_, i->last_rule_, y, i->gmtoff_,
-                          MonthDayTime(local_seconds{tp.time_since_epoch()}, timezone),
+                          MonthDayTime(local_seconds{tp.time_since_epoch()}, timezone_tz),
                           i->initial_save_, i->initial_abbrev_);
             r.offset = i->gmtoff_ + r.save;
             if (i != zonelets_.begin() && r.begin < i[-1].until_utc_)
