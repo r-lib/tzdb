@@ -1,5 +1,8 @@
 # tzdb (development version)
 
+* cpp11 >=0.4.2 is now required to ensure that a fix related to unwind
+  protection is included.
+
 # tzdb 0.2.0
 
 * Updated the time zone database to 2021e (#12).
