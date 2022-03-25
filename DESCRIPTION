@@ -22,7 +22,8 @@ Description: Provides an up-to-date copy of the Internet Assigned Numbers
     utilize. Headers are provided for calendar specific calculations,
     along with a limited interface for time zone manipulations.
 License: MIT + file LICENSE
-URL: https://r-lib.github.io/tzdb/, https://github.com/r-lib/tzdb
+URL: https://tzdb.r-lib.org,
+    https://github.com/r-lib/tzdb
 BugReports: https://github.com/r-lib/tzdb/issues
 Depends: 
     R (>= 3.4.0)
@@ -37,3 +38,5 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 SystemRequirements: C++11
+Config/Needs/website:
+    tidyverse/tidytemplate

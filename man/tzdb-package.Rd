@@ -11,7 +11,7 @@ Provides an up-to-date copy of the Internet Assigned Numbers Authority (IANA) Ti
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://r-lib.github.io/tzdb/}
+  \item \url{https://tzdb.r-lib.org}
   \item \url{https://github.com/r-lib/tzdb}
   \item Report bugs at \url{https://github.com/r-lib/tzdb/issues}
 }
