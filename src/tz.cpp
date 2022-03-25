@@ -198,7 +198,6 @@ namespace
     using co_task_mem_ptr = std::unique_ptr<wchar_t[], task_mem_deleter>;
 }
 
-// tzdb-edit-start
 static
 std::wstring
 convert_utf8_to_utf16(const std::string& s)
@@ -227,7 +226,6 @@ convert_utf8_to_utf16(const std::string& s)
 
     return out;
 }
-// tzdb-edit-stop
 
 // We might need to know certain locations even if not using the remote API,
 // so keep these routines out of that block for now.
@@ -298,8 +296,6 @@ get_download_folder()
 
 #  endif  // !_WIN32
 
-
-// tzdb-edit-start
 /*
  * This class is provided to mimic the following usage of `ifstream`:
  *
@@ -332,17 +328,19 @@ private:
     char buffer_[buffer_size_];
 
 public:
-    file_streambuf(const std::string& filename)
-        : file_(file_open(filename))
-    {
-    }
-
     ~file_streambuf()
     {
         if (file_)
         {
             ::fclose(file_);
         }
+    }
+    file_streambuf(const file_streambuf&) = delete;
+    file_streambuf& operator=(const file_streambuf&) = delete;
+
+    file_streambuf(const std::string& filename)
+        : file_(file_open(filename))
+    {
     }
 
 protected:
@@ -380,7 +378,6 @@ private:
         return file;
     }
 };
-// tzdb-edit-stop
 
 #endif  // !USE_OS_TZDB
 
@@ -418,9 +415,9 @@ access_install()
 }
 
 void
-set_install(const std::string& s)
+set_install(const std::string& install)
 {
-    access_install() = s;
+    access_install() = install;
 }
 
 static
@@ -674,19 +671,8 @@ load_timezone_mappings_from_xml_file(const std::string& input_path)
     std::vector<detail::timezone_mapping> mappings;
     std::string line;
 
-    // tzdb-edit-start
-    // std::ifstream is(input_path);
-    // if (!is.is_open())
-    // {
-    //     // We don't emit file exceptions because that's an implementation detail.
-    //     std::string msg = "Error opening time zone mapping file \"";
-    //     msg += input_path;
-    //     msg += "\".";
-    //     throw std::runtime_error(msg);
-    // }
     file_streambuf ibuf(input_path);
     std::istream is(&ibuf);
-    // tzdb-edit-stop
 
     auto error = [&input_path, &line_num](const char* info)
     {
@@ -816,9 +802,6 @@ load_timezone_mappings_from_xml_file(const std::string& input_path)
         }
     }
 
-    // tzdb-edit-start
-    // is.close();
-    // tzdb-edit-stop
     return mappings;
 }
 
@@ -2969,11 +2952,8 @@ bool
 file_exists(const std::string& filename)
 {
 #ifdef _WIN32
-    // tzdb-edit-start
-    // return ::_access(filename.c_str(), 0) == 0;
     std::wstring wfilename = convert_utf8_to_utf16(filename);
     return ::_waccess(wfilename.c_str(), 0) == 0;
-    // tzdb-edit-stop
 #else
     return ::access(filename.c_str(), F_OK) == 0;
 #endif
@@ -3545,34 +3525,6 @@ remote_install(const std::string& version)
 
 #endif  // HAS_REMOTE_API
 
-// tzdb-edit-start
-// static
-// std::string
-// get_version(const std::string& path)
-// {
-//     std::string version;
-//     std::ifstream infile(path + "version");
-//     if (infile.is_open())
-//     {
-//         infile >> version;
-//         if (!infile.fail())
-//             return version;
-//     }
-//     else
-//     {
-//         infile.open(path + "NEWS");
-//         while (infile)
-//         {
-//             infile >> version;
-//             if (version == "Release")
-//             {
-//                 infile >> version;
-//                 return version;
-//             }
-//         }
-//     }
-//     throw std::runtime_error("Unable to get Timezone database version from " + path);
-// }
 static
 std::string
 get_version(const std::string& path)
@@ -3612,7 +3564,6 @@ get_version(const std::string& path)
 
     throw std::runtime_error("Unable to get Timezone database version from " + path);
 }
-// tzdb-edit-stop
 
 static
 std::unique_ptr<tzdb>
@@ -3682,8 +3633,6 @@ init_tzdb()
 
     for (const auto& filename : files)
     {
-        // tzdb-edit-start
-        // std::ifstream infile(path + filename);
         std::string file_path = path + filename;
         if (!file_exists(file_path))
         {
@@ -3691,7 +3640,6 @@ init_tzdb()
         }
         file_streambuf inbuf(file_path);
         std::istream infile(&inbuf);
-        // tzdb-edit-stop
         while (infile)
         {
             std::getline(infile, line);
