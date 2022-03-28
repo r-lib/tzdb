@@ -5,6 +5,11 @@ We checked 3 reverse dependencies, comparing R CMD check results across CRAN and
  * We saw 0 new problems
  * We failed to check 0 packages
  
+## 0.3.0 Submission
+
+This minor release of tzdb updates the embedded 'date' library and updates the
+time zone data to 2022a.
+ 
 ## 0.2.0 Submission
 
 This minor release of tzdb updates the embedded 'date' library, fixes
