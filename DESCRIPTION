@@ -1,6 +1,6 @@
 Package: tzdb
 Title: Time Zone Database Information
-Version: 0.3.0
+Version: 0.3.0.9000
 Authors@R: c(
     person("Davis", "Vaughan", , "davis@rstudio.com", role = c("aut", "cre")),
     person("Howard", "Hinnant", role = "cph",
