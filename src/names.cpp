@@ -62,10 +62,15 @@ tzdb_names_impl() {
 
   cpp11::writable::strings out(n_zones);
 
+  // Avoid letting `operator SEXP()` run inside `SET_STRING_ELT()` because that
+  // combined with `Rf_mkCharLenCE()` seems to trigger an rchk warning:
+  // "Suspicious call (two or more unprotected arguments) to SET_STRING_ELT"
+  SEXP data = out.data();
+
   cpp11::unwind_protect([&] {
     for (R_xlen_t i = 0; i < n_zones; ++i) {
       const std::string& name = zones[i];
-      SET_STRING_ELT(out, i, Rf_mkCharLenCE(name.c_str(), name.size(), CE_UTF8));
+      SET_STRING_ELT(data, i, Rf_mkCharLenCE(name.c_str(), name.size(), CE_UTF8));
     }
   });
 
