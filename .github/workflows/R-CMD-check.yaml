@@ -16,7 +16,7 @@ jobs:
   R-CMD-check:
     runs-on: ${{ matrix.config.os }}
 
-    name: ${{ matrix.config.os }} (${{ matrix.config.r }})
+    name: ${{ matrix.config.os }} (${{ matrix.config.r }}) ${{ matrix.config.locale }}.${{ matrix.config.variant }}
 
     strategy:
       fail-fast: false
@@ -25,6 +25,8 @@ jobs:
           - {os: macOS-latest,   r: 'release'}
 
           - {os: windows-latest, r: 'release'}
+          # Use 4.1 to trigger usage of RTools40 (#13)
+          - {os: windows-latest, r: '4.1'}
           # Use 3.6 to trigger usage of RTools35
           - {os: windows-latest, r: '3.6'}
 
@@ -35,6 +37,8 @@ jobs:
           - {os: ubuntu-18.04,   r: 'oldrel-2'}
           - {os: ubuntu-18.04,   r: 'oldrel-3'}
           - {os: ubuntu-18.04,   r: 'oldrel-4'}
+          # Check with a non-UTF-8 encoding (#13)
+          - {os: ubuntu-18.04,   r: 'release', locale: 'en_US', variant: 'ISO-8859-1'}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -42,6 +46,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+
+      - name: Set locale
+        if: matrix.config.locale != ''
+        run: |
+          sudo locale-gen ${{ matrix.config.locale }}
+          echo "LC_ALL=${{ matrix.config.locale }}.${{ matrix.config.variant }}" >> $GITHUB_ENV
 
       - uses: r-lib/actions/setup-pandoc@v2
 
