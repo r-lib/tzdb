@@ -1,5 +1,8 @@
 # tzdb (development version)
 
+* R >=3.5.0 is now required. This is consistent with the standards of the
+  tidyverse.
+
 # tzdb 0.3.0
 
 * Updated the embedded date library
