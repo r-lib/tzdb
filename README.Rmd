@@ -46,6 +46,6 @@ install.packages("tzdb")
 And the development version from [GitHub](https://github.com/) with:
 
 ``` r
-# install.packages("remotes")
-remotes::install_github("r-lib/tzdb")
+# install.packages("pak")
+pak::pak("r-lib/tzdb")
 ```

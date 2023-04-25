@@ -10,19 +10,19 @@
 
 tzdb is a developer focused R package with two purposes:
 
--   It ships an up-to-date copy of the IANA time zone database files.
+- It ships an up-to-date copy of the IANA time zone database files.
 
--   It provides low-level access to the C++ library,
-    [date](https://github.com/HowardHinnant/date).
+- It provides low-level access to the C++ library,
+  [date](https://github.com/HowardHinnant/date).
 
 To use the C++ API supplied by tzdb:
 
--   Add tzdb to both Imports and LinkingTo.
+- Add tzdb to both Imports and LinkingTo.
 
--   Call `tzdb::tzdb_initialize()` from your `.onLoad()`.
+- Call `tzdb::tzdb_initialize()` from your `.onLoad()`.
 
--   Access the date API through `#include <tzdb/*.h>` where `*` is
-    replaced with the date header you want to use.
+- Access the date API through `#include <tzdb/*.h>` where `*` is
+  replaced with the date header you want to use.
 
 Note that while `tzdb/tz.h` declares many functions and types, most of
 their implementations are not present in the header file. This means
@@ -42,6 +42,6 @@ install.packages("tzdb")
 And the development version from [GitHub](https://github.com/) with:
 
 ``` r
-# install.packages("remotes")
-remotes::install_github("r-lib/tzdb")
+# install.packages("pak")
+pak::pak("r-lib/tzdb")
 ```
