@@ -1,5 +1,7 @@
 # tzdb (development version)
 
+* Updated the time zone database to 2023c (#29).
+
 * R >=3.5.0 is now required. This is consistent with the standards of the
   tidyverse.
 
