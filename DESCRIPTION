@@ -2,10 +2,10 @@ Package: tzdb
 Title: Time Zone Database Information
 Version: 0.3.0.9000
 Authors@R: c(
-    person("Davis", "Vaughan", , "davis@rstudio.com", role = c("aut", "cre")),
+    person("Davis", "Vaughan", , "davis@posit.co", role = c("aut", "cre")),
     person("Howard", "Hinnant", role = "cph",
            comment = "Author of the included date library"),
-    person("RStudio", role = c("cph", "fnd"))
+    person("Posit Software, PBC", role = c("cph", "fnd"))
   )
 Description: Provides an up-to-date copy of the Internet Assigned Numbers
     Authority (IANA) Time Zone Database. It is updated periodically to
@@ -32,5 +32,5 @@ Config/Needs/website:
 Config/testthat/edition: 3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.3
 SystemRequirements: C++11
