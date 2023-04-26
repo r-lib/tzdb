@@ -1,5 +1,8 @@
 # tzdb (development version)
 
+* Updated the embedded date library
+  (SHA cc4685a21e4a4fdae707ad1233c61bbaff241f93) (#30).
+
 * Updated the time zone database to 2023c (#29).
 
 * R >=3.5.0 is now required. This is consistent with the standards of the

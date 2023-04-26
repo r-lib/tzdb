@@ -2832,6 +2832,7 @@ find_read_and_leap_seconds()
         }
         return leap_seconds;
     }
+#if !MISSING_LEAP_SECONDS
     in.clear();
     in.open(get_tz_dir() + std::string(1, folder_delimiter) + "right/UTC",
                      std::ios_base::binary);
@@ -2846,6 +2847,7 @@ find_read_and_leap_seconds()
     {
         return load_just_leaps(in);
     }
+#endif
     return {};
 }
 
@@ -3671,6 +3673,10 @@ init_tzdb()
                 else if (line[0] == '\t' && continue_zone)
                 {
                     db->zones.back().add(line);
+                }
+                else if (word.size() > 0 && word[0] == '#')
+                {
+                    continue;
                 }
                 else
                 {
