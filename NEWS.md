@@ -1,4 +1,4 @@
-# tzdb (development version)
+# tzdb 0.4.0
 
 * Updated the embedded date library
   (SHA cc4685a21e4a4fdae707ad1233c61bbaff241f93) (#30).
