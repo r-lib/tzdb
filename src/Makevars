@@ -1,4 +1,6 @@
-# CXX11 is required, apparently CXX14 would be better for constexpr support
+# We no longer specify `CXX_STD = CXX11` since modern versions of R require
+# C++11 as a minimum. This also allows more modern compilers to use C++14, which
+# has constexpr benefits.
 
 # -DINSTALL=dummy
 # To keep some problematic code from running on windows if INSTALL isn't defined.
@@ -23,8 +25,6 @@
 #
 # Because of these issues, we instead default to using an uncompressed
 # text version of the database that we ship with tzdb.
-
-CXX_STD = CXX11
 
 PKG_CXXFLAGS = \
 	-I../inst/include \
