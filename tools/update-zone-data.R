@@ -23,7 +23,7 @@ library(fs)
 # the `version`, but that is typically fine.
 
 # Update the version!
-version <- "2023c"
+version <- "2025a"
 
 # ------------------------------------------------------------------------------
 # Download the time zone database
