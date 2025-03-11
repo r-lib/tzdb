@@ -25,7 +25,7 @@ Suggests:
     covr,
     testthat (>= 3.0.0)
 LinkingTo: 
-    cpp11 (>= 0.4.2)
+    cpp11 (>= 0.5.2)
 Biarch: yes
 Config/Needs/website:
     tidyverse/tidytemplate

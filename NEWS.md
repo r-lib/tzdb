@@ -1,5 +1,7 @@
 # tzdb (development version)
 
+* cpp11 >=0.5.2 is now required.
+
 * R >=4.0.0 is now required. This is consistent with the standards of the
   tidyverse.
 
