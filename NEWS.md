@@ -1,5 +1,7 @@
 # tzdb (development version)
 
+* Updated the time zone database to 2025a (#37).
+
 * Updated the embedded date library
   (SHA d18e8b1653e0ab1f583dcea22f007e12f69e497b) (#36).
 
