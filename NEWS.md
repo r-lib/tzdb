@@ -1,5 +1,8 @@
 # tzdb (development version)
 
+* Updated the embedded date library
+  (SHA d18e8b1653e0ab1f583dcea22f007e12f69e497b) (#36).
+
 # tzdb 0.4.0
 
 * Updated the embedded date library
