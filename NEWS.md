@@ -1,5 +1,8 @@
 # tzdb (development version)
 
+* R >=4.0.0 is now required. This is consistent with the standards of the
+  tidyverse.
+
 * Updated the time zone database to 2025a (#37).
 
 * Updated the embedded date library
