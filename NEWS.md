@@ -8,7 +8,7 @@
 * Updated the time zone database to 2025a (#37).
 
 * Updated the embedded date library
-  (SHA d18e8b1653e0ab1f583dcea22f007e12f69e497b) (#36).
+  (SHA 32ecb2ad24699963f6c58d74d74bcd8bf7e830a9) (#36, #40).
 
 # tzdb 0.4.0
 
