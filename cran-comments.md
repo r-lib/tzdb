@@ -1,1 +1,1 @@
-There are no expected reverse dependency issues.
+It is expected that clock will break from this release. I have a clock release ready to go that I will release as soon as tzdb is accepted.
