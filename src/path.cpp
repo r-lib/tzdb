@@ -15,9 +15,8 @@ tzdb_set_install_cpp(const cpp11::strings& path) {
     cpp11::stop("Internal error: Time zone database installation path should have size 1.");
   }
 
-  std::string string_path(path[0]);
-
 #if !USE_OS_TZDB
+  std::string string_path(path[0]);
   date::set_install(string_path);
 #endif
 }
